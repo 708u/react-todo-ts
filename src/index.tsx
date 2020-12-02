@@ -1,4 +1,4 @@
-import 'app/index.css';
+import 'index.css';
 import App from 'components/page/App';
 import ReactDOM from 'react-dom';
 import { StrictMode } from 'react';
