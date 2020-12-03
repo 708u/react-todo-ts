@@ -1,7 +1,7 @@
 import 'index.css';
 import App from 'components/page/App';
-import ReactDOM from 'react-dom';
 import { StrictMode } from 'react';
+import ReactDOM from 'react-dom';
 import reportWebVitals from 'reportWebVitals';
 
 ReactDOM.render(
