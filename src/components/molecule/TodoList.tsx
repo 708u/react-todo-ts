@@ -1,11 +1,10 @@
+import ToggleAll from 'components/atom/ToggleAll';
 import { FC } from 'react';
 
 const TodoList: FC = () => {
   return (
     <section className="main">
-      <label htmlFor="toggle-all">
-        <input id="toggle-all" className="toggle-all" type="checkbox" checked />
-      </label>
+      <ToggleAll />
       <ul className="todo-list">
         <li>
           <div className="view">
