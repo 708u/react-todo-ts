@@ -24,7 +24,7 @@ const App: FC = () => {
             </li>
           </ul>
         </section>
-        <footer>
+        <footer className="footer">
           <span className="todo-count">1 item list</span>
           <ul className="filters">
             <li>
@@ -32,9 +32,11 @@ const App: FC = () => {
                 All
               </a>
             </li>
+            <span> </span>
             <li>
               <a href="#/active">Active</a>
             </li>
+            <span> </span>
             <li>
               <a href="#/completed">Completed</a>
             </li>
