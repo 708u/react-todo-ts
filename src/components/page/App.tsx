@@ -1,6 +1,6 @@
 import 'App.css';
-import Footer from 'components/organism/Footer';
-import Todo from 'components/organism/Todo';
+import Footer from 'components/organisms/Footer';
+import Todo from 'components/organisms/Todo';
 import { FC } from 'react';
 
 const App: FC = () => {

@@ -1,4 +1,4 @@
-import ToggleAll from 'components/atom/ToggleAll';
+import ToggleAll from 'components/atoms/ToggleAll';
 import { FC } from 'react';
 
 const TodoList: FC = () => {

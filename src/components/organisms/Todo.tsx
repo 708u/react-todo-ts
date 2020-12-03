@@ -1,6 +1,6 @@
-import TodoFooter from 'components/molecule/TodoFooter';
-import TodoList from 'components/molecule/TodoList';
-import TodoTitle from 'components/molecule/TodoTitle';
+import TodoFooter from 'components/molecules/TodoFooter';
+import TodoList from 'components/molecules/TodoList';
+import TodoTitle from 'components/molecules/TodoTitle';
 import { FC } from 'react';
 
 const Todo: FC = () => {
