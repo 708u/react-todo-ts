@@ -10,7 +10,7 @@ const TodoList: FC = () => {
           <div className="view">
             <input type="checkbox" className="toggle" />
             <label htmlFor="foobar">
-              <input id="foobar" type="text" className="edit" value="foo" />
+              <input id="foobar" type="text" className="edit" />
             </label>
           </div>
         </li>

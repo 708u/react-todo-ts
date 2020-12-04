@@ -5,10 +5,10 @@ import { FC } from 'react';
 
 const App: FC = () => {
   return (
-    <body>
+    <>
       <Todo />
       <Footer />
-    </body>
+    </>
   );
 };
 
