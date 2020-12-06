@@ -1,19 +1,29 @@
 import ToggleAll from 'components/atoms/ToggleAll';
 import { FC } from 'react';
+import { v4 as uuid } from 'uuid';
 
-const TodoList: FC = () => {
+type Props = {
+  todoList: string[];
+};
+
+const TodoList: FC<Props> = (props) => {
+  const { todoList } = props;
   return (
     <section className="main">
       <ToggleAll />
       <ul className="todo-list">
-        <li>
-          <div className="view">
-            <input type="checkbox" className="toggle" />
-            <label htmlFor="foobar">
-              <input id="foobar" type="text" className="edit" />
-            </label>
-          </div>
-        </li>
+        {todoList.map((v) => {
+          const key = uuid();
+          return (
+            <li key={key}>
+              <div className="view">
+                <input type="checkbox" className="toggle" />
+                <label htmlFor={`edit-${key}`}>{v}</label>
+              </div>
+              <input id={`edit-${key}`} type="text" className="edit" />
+            </li>
+          );
+        })}
       </ul>
     </section>
   );

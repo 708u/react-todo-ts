@@ -6,13 +6,17 @@ import { FC, useState } from 'react';
 
 const Todo: FC = () => {
   const [newTodo, setTodo] = useState('');
-  const handleOnSubmitNewTodo: HandleOnSubmitNewTodo = (e) => e.preventDefault;
+  const [todoList, setTodoList] = useState<string[]>([]);
+  const handleOnSubmitNewTodo: HandleOnSubmitNewTodo = (e) => {
+    e.preventDefault();
+    setTodoList(todoList.concat(newTodo));
+  };
   const handleOnChangeTodoInput: InputOnChange = (e) => setTodo(e.target.value);
 
   return (
     <section className="todoapp">
       <TodoTitle newTodo={newTodo} handleOnSubmit={handleOnSubmitNewTodo} handleOnChange={handleOnChangeTodoInput} />
-      <TodoList />
+      <TodoList todoList={todoList} />
       <TodoFooter />
     </section>
   );
