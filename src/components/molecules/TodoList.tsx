@@ -1,6 +1,6 @@
 import ToggleAll from 'components/atoms/ToggleAll';
+import uuid from 'lib/uuid';
 import { FC } from 'react';
-import { v4 as uuid } from 'uuid';
 
 type Props = {
   todoList: string[];
