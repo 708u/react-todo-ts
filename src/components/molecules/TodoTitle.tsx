@@ -1,21 +1,24 @@
-import Input from 'components/atoms/Input';
-import { Dispatch, FC } from 'react';
+import Input, { InputOnChange } from 'components/atoms/Input';
+import { FC, FormEvent } from 'react';
 
+type HandleOnSubmitNewTodo = (e: FormEvent<HTMLFormElement>) => void;
 type Props = {
   newTodo: string;
-  setTodo: Dispatch<string>;
+  handleOnChange?: InputOnChange;
+  handleOnSubmit?: HandleOnSubmitNewTodo;
 };
 
 const TodoTitle: FC<Props> = (props) => {
-  const { newTodo, setTodo } = props;
+  const { newTodo, handleOnChange, handleOnSubmit } = props;
   return (
     <header>
       <h1>todos</h1>
-      <form id="todo-addition-form" onSubmit={(e) => e.preventDefault()}>
-        <Input value={newTodo} placeholder="What needs to be done?" onChange={(e) => setTodo(e.target.value)} />
+      <form id="todo-addition-form" onSubmit={handleOnSubmit}>
+        <Input value={newTodo} placeholder="What needs to be done?" onChange={handleOnChange} />
       </form>
     </header>
   );
 };
 
+export type { HandleOnSubmitNewTodo };
 export default TodoTitle;
