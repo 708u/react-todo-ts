@@ -1,9 +1,14 @@
 import ToggleAll from 'components/atoms/ToggleAll';
-import uuid from 'lib/uuid';
 import { FC } from 'react';
 
+type TodoList = {
+  id: string;
+  content: string;
+  completed: boolean;
+}[];
+
 type Props = {
-  todoList: string[];
+  todoList: TodoList;
 };
 
 const TodoList: FC<Props> = (props) => {
@@ -12,15 +17,14 @@ const TodoList: FC<Props> = (props) => {
     <section className="main">
       <ToggleAll />
       <ul className="todo-list">
-        {todoList.map((v) => {
-          const key = uuid();
+        {todoList.map((todo) => {
           return (
-            <li key={key}>
+            <li key={todo.id}>
               <div className="view">
                 <input type="checkbox" className="toggle" />
-                <label htmlFor={`edit-${key}`}>{v}</label>
+                <label htmlFor={`edit-${todo.id}`}>{todo.content}</label>
               </div>
-              <input id={`edit-${key}`} type="text" className="edit" />
+              <input id={`edit-${todo.id}`} type="text" className="edit" />
             </li>
           );
         })}
@@ -29,4 +33,5 @@ const TodoList: FC<Props> = (props) => {
   );
 };
 
+export type { TodoList };
 export default TodoList;
