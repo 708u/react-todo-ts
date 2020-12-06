@@ -3,18 +3,18 @@ import { FC, FormEvent } from 'react';
 
 type HandleOnSubmitNewTodo = (e: FormEvent<HTMLFormElement>) => void;
 type Props = {
-  newTodo: string;
+  newContent: string;
   handleOnChange?: InputOnChange;
   handleOnSubmit?: HandleOnSubmitNewTodo;
 };
 
 const TodoTitle: FC<Props> = (props) => {
-  const { newTodo, handleOnChange, handleOnSubmit } = props;
+  const { newContent, handleOnChange, handleOnSubmit } = props;
   return (
     <header>
       <h1>todos</h1>
       <form id="todo-addition-form" onSubmit={handleOnSubmit}>
-        <Input value={newTodo} placeholder="What needs to be done?" onChange={handleOnChange} />
+        <Input value={newContent} placeholder="What needs to be done?" onChange={handleOnChange} />
       </form>
     </header>
   );
