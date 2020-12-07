@@ -1,18 +1,19 @@
 import ToggleAll from 'components/atoms/ToggleAll';
 import { FC } from 'react';
 
-type TodoList = {
+type Todo = {
   id: string;
   content: string;
   completed: boolean;
-}[];
+};
 
 type Props = {
-  todoList: TodoList;
+  todoList: Todo[];
+  onToggleComplete: (id: string) => void;
 };
 
 const TodoList: FC<Props> = (props) => {
-  const { todoList } = props;
+  const { todoList, onToggleComplete } = props;
   return (
     <section className="main">
       <ToggleAll />
@@ -21,7 +22,12 @@ const TodoList: FC<Props> = (props) => {
           return (
             <li key={todo.id}>
               <div className="view">
-                <input type="checkbox" className="toggle" />
+                <input
+                  onChange={() => onToggleComplete(todo.id)}
+                  type="checkbox"
+                  checked={todo.completed}
+                  className="toggle"
+                />
                 <label htmlFor={`edit-${todo.id}`}>{todo.content}</label>
               </div>
               <input id={`edit-${todo.id}`} type="text" className="edit" />
@@ -33,5 +39,5 @@ const TodoList: FC<Props> = (props) => {
   );
 };
 
-export type { TodoList };
+export type { Todo };
 export default TodoList;
