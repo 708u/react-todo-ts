@@ -35,7 +35,7 @@ const Todo: FC = () => {
         handleOnChange={handleOnChangeContent}
       />
       <TodoList todoList={todoList} onToggleComplete={handleOntToggleComplete} />
-      <TodoFooter />
+      <TodoFooter count={todoList.length} />
     </section>
   );
 };

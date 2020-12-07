@@ -1,9 +1,16 @@
 import { FC } from 'react';
 
-const TodoFooter: FC = () => {
-  return (
+type Props = {
+  count: number;
+};
+
+const TodoFooter: FC<Props> = (props) => {
+  const { count } = props;
+  return count === 0 ? (
+    <></>
+  ) : (
     <footer className="footer">
-      <span className="todo-count">1 item list</span>
+      <span className="todo-count">{`${count} ${count === 1 ? 'item' : 'items'} left`}</span>
       <ul className="filters">
         <li>
           <a href="#/" className="selected">
