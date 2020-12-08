@@ -1,15 +1,17 @@
+import List from 'components/atoms/List';
 import ToggleAll from 'components/atoms/ToggleAll';
-import type { Todo } from 'lib/hooks/useTodoList';
+import type { DispatchAction, Todo } from 'lib/hooks/useTodoList';
 import { FC } from 'react';
 
 type Props = {
   todoList: Todo[];
-  onDestroyTodo: (todo: Todo) => void;
-  onToggleComplete: (todo: Todo) => void;
+  onToggleComplete: DispatchAction;
+  onEdit: DispatchAction;
+  onDestroyTodo: DispatchAction;
 };
 
 const TodoList: FC<Props> = (props) => {
-  const { todoList, onDestroyTodo, onToggleComplete } = props;
+  const { todoList, onToggleComplete, onEdit, onDestroyTodo } = props;
   return (
     <section className="main">
       <ToggleAll />
@@ -17,22 +19,13 @@ const TodoList: FC<Props> = (props) => {
         {todoList
           .map((todo) => {
             return (
-              <li key={todo.id} className={todo.completed ? 'completed' : ''}>
-                <div className="view">
-                  <input
-                    id={`todo-toggle-${todo.id}`}
-                    onChange={() => onToggleComplete(todo)}
-                    type="checkbox"
-                    checked={todo.completed}
-                    className="toggle"
-                  />
-                  <label htmlFor={`todo-toggle-${todo.id}`}>{todo.content}</label>
-                  <button onClick={() => onDestroyTodo(todo)} type="button" className="destroy">
-                    {/* X */}
-                  </button>
-                </div>
-                <input id={`edit-${todo.id}`} type="text" className="edit" />
-              </li>
+              <List
+                key={todo.id}
+                todo={todo}
+                onToggleComplete={onToggleComplete}
+                onDestroyTodo={onDestroyTodo}
+                onEdit={onEdit}
+              />
             );
           })
           .reverse()}
@@ -41,5 +34,4 @@ const TodoList: FC<Props> = (props) => {
   );
 };
 
-export type { Todo };
 export default TodoList;
