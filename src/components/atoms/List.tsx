@@ -1,6 +1,6 @@
 import keys from 'lib/constants';
 import { DispatchAction, Todo } from 'lib/hooks/useTodoList';
-import { FC, KeyboardEvent, useState } from 'react';
+import { FC, KeyboardEvent, useEffect, useRef, useState } from 'react';
 
 type Props = {
   todo: Todo;
@@ -17,6 +17,10 @@ type EditStatus = {
 const List: FC<Props> = (props) => {
   const { todo, onToggleComplete, onEdit, onDestroyTodo } = props;
   const [editStatus, setEditStatus] = useState<EditStatus>({ content: todo.content, editing: false });
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => inputRef.current?.focus(), [editStatus]);
+
   return (
     <li className={`${todo.completed ? 'completed' : ''} ${editStatus.editing ? 'editing' : ''} `}>
       <div className="view">
@@ -39,6 +43,7 @@ const List: FC<Props> = (props) => {
         value={editStatus.content}
         type="text"
         className="edit"
+        ref={inputRef}
         onChange={(e) => setEditStatus({ ...editStatus, content: e.target.value })}
         onKeyDown={(e: KeyboardEvent) => {
           if (e.key === keys.enter) {
