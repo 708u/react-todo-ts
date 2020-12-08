@@ -19,25 +19,28 @@ const TodoList: FC<Props> = (props) => {
     <section className="main">
       <ToggleAll />
       <ul className="todo-list">
-        {todoList.map((todo) => {
-          return (
-            <li key={todo.id}>
-              <div className="view">
-                <input
-                  onChange={() => onToggleComplete(todo)}
-                  type="checkbox"
-                  checked={todo.completed}
-                  className="toggle"
-                />
-                <button onClick={() => onDestroyTodo(todo)} type="button" className="destroy">
-                  {/* X */}
-                </button>
-                <label htmlFor={`edit-${todo.id}`}>{todo.content}</label>
-              </div>
-              <input id={`edit-${todo.id}`} type="text" className="edit" />
-            </li>
-          );
-        })}
+        {todoList
+          .map((todo) => {
+            return (
+              <li key={todo.id}>
+                <div className="view">
+                  <input
+                    id={`todo-toggle-${todo.id}`}
+                    onChange={() => onToggleComplete(todo)}
+                    type="checkbox"
+                    checked={todo.completed}
+                    className="toggle"
+                  />
+                  <label htmlFor={`todo-toggle-${todo.id}`}>{todo.content}</label>
+                  <button onClick={() => onDestroyTodo(todo)} type="button" className="destroy">
+                    {/* X */}
+                  </button>
+                </div>
+                <input id={`edit-${todo.id}`} type="text" className="edit" />
+              </li>
+            );
+          })
+          .reverse()}
       </ul>
     </section>
   );
