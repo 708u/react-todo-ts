@@ -7,13 +7,13 @@ type Todo = {
 };
 
 type Action = 'ADD_TODO' | 'TOGGLE_COMPLETE' | 'DELETE_TODO';
-type Dispatcher = {
+type TodoEvent = {
   type: Action;
   todo: Todo;
 };
 
-const useTodoList = (): [Todo[], Dispatch<Dispatcher>] => {
-  const reducer = (state: Todo[], action: Dispatcher): Todo[] => {
+const useTodoList = (): [Todo[], Dispatch<TodoEvent>] => {
+  const reducer = (state: Todo[], action: TodoEvent): Todo[] => {
     switch (action.type) {
       case 'ADD_TODO': {
         return state.concat(action.todo);
