@@ -1,3 +1,4 @@
+import Span from 'components/atoms/Span';
 import Toggler from 'components/atoms/Toggler';
 import { visibilities } from 'lib/hooks/useTodoVisibility';
 import { FC } from 'react';
@@ -26,7 +27,7 @@ const TodoFooter: FC<Props> = (props) => {
     <></>
   ) : (
     <footer className="footer">
-      <span className="todo-count">{`${todoCount} ${todoCount === 1 ? 'item' : 'items'} left`}</span>
+      <Span className="todo-count">{`${todoCount} ${todoCount === 1 ? 'item' : 'items'} left`}</Span>
       <ul className="filters">
         <li>
           <Toggler href="#/" isSelected={visibility === visibilities.all} onClick={onCheckAsAll}>
