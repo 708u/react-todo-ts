@@ -27,7 +27,7 @@ const TodoFooter: FC<Props> = (props) => {
     <></>
   ) : (
     <footer className="footer">
-      <Span className="todo-count">{`${todoCount} ${todoCount === 1 ? 'item' : 'items'} left`}</Span>
+      <Span className="todo-count">{`${todoCount} item${todoCount >= 2 ? 's' : ''} left`}</Span>
       <ul className="filters">
         <li>
           <Toggler href="#/" isSelected={visibility === visibilities.all} onClick={onCheckAsAll}>
