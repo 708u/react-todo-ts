@@ -22,6 +22,7 @@ const Todo: FC = () => {
   };
   const handleOnChangeContent: InputOnChange = (e) => setContent(e.target.value);
   const handleOnToggleComplete: DispatchAction = (todo) => dispatch({ type: 'TOGGLE_COMPLETE', todo });
+  const handleOnEdit: DispatchAction = (todo) => dispatch({ type: 'EDIT_TODO', todo });
   const handleOnDestroyTodo: DispatchAction = (todo) => dispatch({ type: 'DELETE_TODO', todo });
   const handleOnClearCompleted = (): void => dispatch({ type: 'CLEAR_COMPLETED', todo: mock });
   const handleOnCheckVisibility = (visible: TodoVisibility) => (): void => setVisibility({ status: visible });
@@ -54,6 +55,7 @@ const Todo: FC = () => {
       <TodoList
         todoList={applyVisibilityToTodoList()}
         onToggleComplete={handleOnToggleComplete}
+        onEdit={handleOnEdit}
         onDestroyTodo={handleOnDestroyTodo}
       />
       <TodoFooter
