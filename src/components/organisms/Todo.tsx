@@ -2,11 +2,13 @@ import { InputOnChange } from 'components/atoms/Input';
 import TodoFooter from 'components/molecules/TodoFooter';
 import TodoList from 'components/molecules/TodoList';
 import TodoTitle, { HandleOnSubmitNewTodo } from 'components/molecules/TodoTitle';
-import useTodoList, { DispatchAction, mock } from 'lib/hooks/useTodoList';
+import useTodoList, { Todo as TodoType, DispatchAction, mock } from 'lib/hooks/useTodoList';
+import useTodoVisibility, { TodoVisibility } from 'lib/hooks/useTodoVisibility';
 import uuid from 'lib/uuid';
 import { FC, useState } from 'react';
 
 const Todo: FC = () => {
+  const [visibility, setVisibility] = useTodoVisibility();
   const [newContent, setContent] = useState('');
   const [todoList, dispatch] = useTodoList();
 
@@ -19,6 +21,25 @@ const Todo: FC = () => {
   const handleOnToggleComplete: DispatchAction = (todo) => dispatch({ type: 'TOGGLE_COMPLETE', todo });
   const handleOnDestroyTodo: DispatchAction = (todo) => dispatch({ type: 'DELETE_TODO', todo });
   const handleOnClearCompleted = (): void => dispatch({ type: 'CLEAR_COMPLETED', todo: mock });
+  const handleOnCheckVisibility = (visible: TodoVisibility) => (): void => setVisibility({ status: visible });
+
+  const applyVisibilityToTodoList = (): TodoType[] => {
+    switch (visibility.status) {
+      case 'all': {
+        return todoList;
+      }
+      case 'active': {
+        return todoList.filter((todo) => !todo.completed);
+      }
+      case 'completed': {
+        return todoList.filter((todo) => todo.completed);
+      }
+      default: {
+        const _: never = visibility.status;
+        throw new Error(`${_} is not visibility`);
+      }
+    }
+  };
 
   return (
     <section className="todoapp">
@@ -27,11 +48,19 @@ const Todo: FC = () => {
         handleOnSubmit={handleOnSubmitNewTodo}
         handleOnChange={handleOnChangeContent}
       />
-      <TodoList todoList={todoList} onToggleComplete={handleOnToggleComplete} onDestroyTodo={handleOnDestroyTodo} />
+      <TodoList
+        todoList={applyVisibilityToTodoList()}
+        onToggleComplete={handleOnToggleComplete}
+        onDestroyTodo={handleOnDestroyTodo}
+      />
       <TodoFooter
-        onClearCompleted={handleOnClearCompleted}
         todoCount={todoList.length}
         completedCount={todoList.filter((v) => v.completed).length}
+        visibility={visibility.status}
+        onCheckAsAll={handleOnCheckVisibility('all')}
+        onCheckAsActive={handleOnCheckVisibility('active')}
+        onCheckAsCompleted={handleOnCheckVisibility('completed')}
+        onClearCompleted={handleOnClearCompleted}
       />
     </section>
   );

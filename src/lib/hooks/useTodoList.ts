@@ -21,7 +21,7 @@ const useTodoList = (): [Todo[], Dispatch<TodoEvent>] => {
       }
       case 'TOGGLE_COMPLETE': {
         return state.map((todo) => {
-          return todo.id === action.todo?.id
+          return todo.id === action.todo.id
             ? {
                 ...todo,
                 completed: !todo.completed,
@@ -30,7 +30,7 @@ const useTodoList = (): [Todo[], Dispatch<TodoEvent>] => {
         });
       }
       case 'DELETE_TODO': {
-        return state.filter((todo) => todo.id !== action?.todo?.id);
+        return state.filter((todo) => todo.id !== action.todo.id);
       }
       case 'CLEAR_COMPLETED': {
         return state.filter((todo) => !todo.completed);
