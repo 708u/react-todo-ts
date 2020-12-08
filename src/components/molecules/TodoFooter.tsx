@@ -1,3 +1,4 @@
+import Toggler from 'components/atoms/Toggler';
 import { visibilities } from 'lib/hooks/useTodoVisibility';
 import { FC } from 'react';
 
@@ -28,25 +29,21 @@ const TodoFooter: FC<Props> = (props) => {
       <span className="todo-count">{`${todoCount} ${todoCount === 1 ? 'item' : 'items'} left`}</span>
       <ul className="filters">
         <li>
-          <a href="#/" className={visibility === visibilities.all ? 'selected' : ''} onClick={onCheckAsAll}>
+          <Toggler href="#/" isSelected={visibility === visibilities.all} onClick={onCheckAsAll}>
             All
-          </a>
+          </Toggler>
         </li>
         <span> </span>
         <li>
-          <a href="#/active" className={visibility === visibilities.active ? 'selected' : ''} onClick={onCheckAsActive}>
+          <Toggler href="#/active" isSelected={visibility === visibilities.active} onClick={onCheckAsActive}>
             Active
-          </a>
+          </Toggler>
         </li>
         <span> </span>
         <li>
-          <a
-            href="#/completed"
-            className={visibility === visibilities.completed ? 'selected' : ''}
-            onClick={onCheckAsCompleted}
-          >
-            Completed
-          </a>
+          <Toggler href="#/completed" isSelected={visibility === visibilities.completed} onClick={onCheckAsCompleted}>
+            Active
+          </Toggler>
         </li>
       </ul>
       {completedCount > 0 && (
