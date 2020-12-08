@@ -9,11 +9,12 @@ type Todo = {
 
 type Props = {
   todoList: Todo[];
-  onToggleComplete: (id: string) => void;
+  onDestroyTodo: (todo: Todo) => void;
+  onToggleComplete: (todo: Todo) => void;
 };
 
 const TodoList: FC<Props> = (props) => {
-  const { todoList, onToggleComplete } = props;
+  const { todoList, onDestroyTodo, onToggleComplete } = props;
   return (
     <section className="main">
       <ToggleAll />
@@ -23,11 +24,14 @@ const TodoList: FC<Props> = (props) => {
             <li key={todo.id}>
               <div className="view">
                 <input
-                  onChange={() => onToggleComplete(todo.id)}
+                  onChange={() => onToggleComplete(todo)}
                   type="checkbox"
                   checked={todo.completed}
                   className="toggle"
                 />
+                <button onClick={() => onDestroyTodo(todo)} type="button" className="destroy">
+                  {/* X */}
+                </button>
                 <label htmlFor={`edit-${todo.id}`}>{todo.content}</label>
               </div>
               <input id={`edit-${todo.id}`} type="text" className="edit" />
