@@ -14,6 +14,9 @@ const Todo: FC = () => {
 
   const handleOnSubmitNewTodo: HandleOnSubmitNewTodo = (e) => {
     e.preventDefault();
+    if (newContent === '') {
+      return;
+    }
     dispatch({ type: 'ADD_TODO', todo: { id: uuid(), content: newContent, completed: false } });
     setContent('');
   };
