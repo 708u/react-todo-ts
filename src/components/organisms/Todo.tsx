@@ -1,8 +1,8 @@
 import { InputOnChange } from 'components/atoms/Input';
 import TodoFooter from 'components/molecules/TodoFooter';
-import TodoList, { Todo as TodoType } from 'components/molecules/TodoList';
+import TodoList from 'components/molecules/TodoList';
 import TodoTitle, { HandleOnSubmitNewTodo } from 'components/molecules/TodoTitle';
-import useTodoList, { mock } from 'lib/hooks/useTodoList';
+import useTodoList, { DispatchAction, mock } from 'lib/hooks/useTodoList';
 import uuid from 'lib/uuid';
 import { FC, useState } from 'react';
 
@@ -16,8 +16,8 @@ const Todo: FC = () => {
     setContent('');
   };
   const handleOnChangeContent: InputOnChange = (e) => setContent(e.target.value);
-  const handleOnToggleComplete = (todo: TodoType): void => dispatch({ type: 'TOGGLE_COMPLETE', todo });
-  const handleOnDestroyTodo = (todo: TodoType): void => dispatch({ type: 'DELETE_TODO', todo });
+  const handleOnToggleComplete: DispatchAction = (todo) => dispatch({ type: 'TOGGLE_COMPLETE', todo });
+  const handleOnDestroyTodo: DispatchAction = (todo) => dispatch({ type: 'DELETE_TODO', todo });
   const handleOnClearCompleted = (): void => dispatch({ type: 'CLEAR_COMPLETED', todo: mock });
 
   return (

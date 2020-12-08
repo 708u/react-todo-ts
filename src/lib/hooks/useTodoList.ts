@@ -5,7 +5,7 @@ type Todo = {
   content: string;
   completed: boolean;
 };
-
+type DispatchAction = (todo: Todo) => void;
 type Action = 'ADD_TODO' | 'TOGGLE_COMPLETE' | 'DELETE_TODO' | 'CLEAR_COMPLETED';
 type TodoEvent = {
   type: Action;
@@ -46,4 +46,5 @@ const useTodoList = (): [Todo[], Dispatch<TodoEvent>] => {
 };
 
 export { mock };
+export type { Todo, DispatchAction };
 export default useTodoList;

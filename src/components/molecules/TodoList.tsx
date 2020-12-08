@@ -1,11 +1,6 @@
 import ToggleAll from 'components/atoms/ToggleAll';
+import type { Todo } from 'lib/hooks/useTodoList';
 import { FC } from 'react';
-
-type Todo = {
-  id: string;
-  content: string;
-  completed: boolean;
-};
 
 type Props = {
   todoList: Todo[];
