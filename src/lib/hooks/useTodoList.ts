@@ -6,11 +6,12 @@ type Todo = {
   completed: boolean;
 };
 
-type Action = 'ADD_TODO' | 'TOGGLE_COMPLETE' | 'DELETE_TODO';
+type Action = 'ADD_TODO' | 'TOGGLE_COMPLETE' | 'DELETE_TODO' | 'CLEAR_COMPLETED';
 type TodoEvent = {
   type: Action;
   todo: Todo;
 };
+const mock: Todo = { id: '', content: '', completed: false };
 
 const useTodoList = (): [Todo[], Dispatch<TodoEvent>] => {
   const reducer = (state: Todo[], action: TodoEvent): Todo[] => {
@@ -20,7 +21,7 @@ const useTodoList = (): [Todo[], Dispatch<TodoEvent>] => {
       }
       case 'TOGGLE_COMPLETE': {
         return state.map((todo) => {
-          return todo.id === action.todo.id
+          return todo.id === action.todo?.id
             ? {
                 ...todo,
                 completed: !todo.completed,
@@ -29,7 +30,10 @@ const useTodoList = (): [Todo[], Dispatch<TodoEvent>] => {
         });
       }
       case 'DELETE_TODO': {
-        return state.filter((todo) => todo.id !== action.todo.id);
+        return state.filter((todo) => todo.id !== action?.todo?.id);
+      }
+      case 'CLEAR_COMPLETED': {
+        return state.filter((todo) => !todo.completed);
       }
       default: {
         const _: never = action.type;
@@ -41,4 +45,5 @@ const useTodoList = (): [Todo[], Dispatch<TodoEvent>] => {
   return [todoList, dispatchTodoList];
 };
 
+export { mock };
 export default useTodoList;

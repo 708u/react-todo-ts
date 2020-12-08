@@ -2,7 +2,7 @@ import { InputOnChange } from 'components/atoms/Input';
 import TodoFooter from 'components/molecules/TodoFooter';
 import TodoList, { Todo as TodoType } from 'components/molecules/TodoList';
 import TodoTitle, { HandleOnSubmitNewTodo } from 'components/molecules/TodoTitle';
-import useTodoList from 'lib/hooks/useTodoList';
+import useTodoList, { mock } from 'lib/hooks/useTodoList';
 import uuid from 'lib/uuid';
 import { FC, useState } from 'react';
 
@@ -18,6 +18,7 @@ const Todo: FC = () => {
   const handleOnChangeContent: InputOnChange = (e) => setContent(e.target.value);
   const handleOnToggleComplete = (todo: TodoType): void => dispatch({ type: 'TOGGLE_COMPLETE', todo });
   const handleOnDestroyTodo = (todo: TodoType): void => dispatch({ type: 'DELETE_TODO', todo });
+  const handleOnClearCompleted = (): void => dispatch({ type: 'CLEAR_COMPLETED', todo: mock });
 
   return (
     <section className="todoapp">
@@ -27,7 +28,11 @@ const Todo: FC = () => {
         handleOnChange={handleOnChangeContent}
       />
       <TodoList todoList={todoList} onToggleComplete={handleOnToggleComplete} onDestroyTodo={handleOnDestroyTodo} />
-      <TodoFooter count={todoList.length} />
+      <TodoFooter
+        onClearCompleted={handleOnClearCompleted}
+        todoCount={todoList.length}
+        completedCount={todoList.filter((v) => v.completed).length}
+      />
     </section>
   );
 };

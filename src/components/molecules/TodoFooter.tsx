@@ -1,16 +1,18 @@
 import { FC } from 'react';
 
 type Props = {
-  count: number;
+  todoCount: number;
+  completedCount: number;
+  onClearCompleted: () => void;
 };
 
 const TodoFooter: FC<Props> = (props) => {
-  const { count } = props;
-  return count === 0 ? (
+  const { todoCount, completedCount, onClearCompleted } = props;
+  return todoCount === 0 ? (
     <></>
   ) : (
     <footer className="footer">
-      <span className="todo-count">{`${count} ${count === 1 ? 'item' : 'items'} left`}</span>
+      <span className="todo-count">{`${todoCount} ${todoCount === 1 ? 'item' : 'items'} left`}</span>
       <ul className="filters">
         <li>
           <a href="#/" className="selected">
@@ -26,6 +28,11 @@ const TodoFooter: FC<Props> = (props) => {
           <a href="#/completed">Completed</a>
         </li>
       </ul>
+      {completedCount > 0 && (
+        <button type="button" className="clear-completed" onClick={onClearCompleted}>
+          Clear Completed
+        </button>
+      )}
     </footer>
   );
 };
