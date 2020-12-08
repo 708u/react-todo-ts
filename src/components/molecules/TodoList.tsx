@@ -17,7 +17,7 @@ const TodoList: FC<Props> = (props) => {
         {todoList
           .map((todo) => {
             return (
-              <li key={todo.id}>
+              <li key={todo.id} className={todo.completed ? 'completed' : ''}>
                 <div className="view">
                   <input
                     id={`todo-toggle-${todo.id}`}
