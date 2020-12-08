@@ -4,14 +4,15 @@ type Todo = {
   id: string;
   content: string;
   completed: boolean;
+  editing: boolean;
 };
 type DispatchAction = (todo: Todo) => void;
-type Action = 'ADD_TODO' | 'TOGGLE_COMPLETE' | 'DELETE_TODO' | 'CLEAR_COMPLETED';
+type Action = 'ADD_TODO' | 'TOGGLE_COMPLETE' | 'EDIT_TODO' | 'DELETE_TODO' | 'CLEAR_COMPLETED';
 type TodoEvent = {
   type: Action;
   todo: Todo;
 };
-const mock: Todo = { id: '', content: '', completed: false };
+const mock: Todo = { id: '', content: '', completed: false, editing: false };
 
 const useTodoList = (): [Todo[], Dispatch<TodoEvent>] => {
   const reducer = (state: Todo[], action: TodoEvent): Todo[] => {
@@ -25,6 +26,16 @@ const useTodoList = (): [Todo[], Dispatch<TodoEvent>] => {
             ? {
                 ...todo,
                 completed: !todo.completed,
+              }
+            : todo;
+        });
+      }
+      case 'EDIT_TODO': {
+        return state.map((todo) => {
+          return todo.id === action.todo.id
+            ? {
+                ...todo,
+                content: todo.content,
               }
             : todo;
         });
