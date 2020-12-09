@@ -6,6 +6,14 @@ import useTodoList, { Todo as TodoType, DispatchAction, mock } from 'lib/hooks/u
 import useTodoVisibility, { TodoVisibility } from 'lib/hooks/useTodoVisibility';
 import uuid from 'lib/uuid';
 import { FC, useState } from 'react';
+import styled from 'styled-components';
+
+const TodoApp = styled.section`
+  background: #fff;
+  margin: 130px 0 40px 0;
+  position: relative;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+`;
 
 const Todo: FC = () => {
   const [visibility, setVisibility] = useTodoVisibility();
@@ -55,7 +63,7 @@ const Todo: FC = () => {
   };
 
   return (
-    <section className="todoapp">
+    <TodoApp>
       <TodoTitle
         newContent={newContent}
         handleOnSubmit={handleOnSubmitNewTodo}
@@ -78,7 +86,7 @@ const Todo: FC = () => {
         onCheckAsCompleted={handleOnCheckVisibility('completed')}
         onClearCompleted={handleOnClearCompleted}
       />
-    </section>
+    </TodoApp>
   );
 };
 
