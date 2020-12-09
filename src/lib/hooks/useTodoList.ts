@@ -6,7 +6,14 @@ type Todo = {
   completed: boolean;
 };
 type DispatchAction = (todo: Todo) => void;
-type Action = 'ADD_TODO' | 'TOGGLE_COMPLETE' | 'EDIT_TODO' | 'DELETE_TODO' | 'CLEAR_COMPLETED';
+type Action =
+  | 'ADD_TODO'
+  | 'CHANGE_ALL_COMPLETE'
+  | 'CHANGE_ALL_ACTIVE'
+  | 'TOGGLE_COMPLETE'
+  | 'EDIT_TODO'
+  | 'DELETE_TODO'
+  | 'CLEAR_COMPLETED';
 type TodoEvent = {
   type: Action;
   todo: Todo;
@@ -19,25 +26,17 @@ const useTodoList = (): [Todo[], Dispatch<TodoEvent>] => {
       case 'ADD_TODO': {
         return state.concat(action.todo);
       }
+      case 'CHANGE_ALL_COMPLETE': {
+        return state.map((todo) => ({ ...todo, completed: true }));
+      }
+      case 'CHANGE_ALL_ACTIVE': {
+        return state.map((todo) => ({ ...todo, completed: false }));
+      }
       case 'TOGGLE_COMPLETE': {
-        return state.map((todo) => {
-          return todo.id === action.todo.id
-            ? {
-                ...todo,
-                completed: !todo.completed,
-              }
-            : todo;
-        });
+        return state.map((todo) => (todo.id === action.todo.id ? { ...todo, completed: !todo.completed } : todo));
       }
       case 'EDIT_TODO': {
-        return state.map((todo) => {
-          return todo.id === action.todo.id
-            ? {
-                ...todo,
-                content: todo.content,
-              }
-            : todo;
-        });
+        return state.map((todo) => (todo.id === action.todo.id ? { ...todo, content: todo.content } : todo));
       }
       case 'DELETE_TODO': {
         return state.filter((todo) => todo.id !== action.todo.id);

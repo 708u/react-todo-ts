@@ -5,16 +5,18 @@ import { FC } from 'react';
 
 type Props = {
   todoList: Todo[];
+  toggleAllInputStatus: boolean;
+  onToggleAllComplete: () => void;
   onToggleComplete: DispatchAction;
   onEdit: DispatchAction;
   onDestroyTodo: DispatchAction;
 };
 
 const TodoList: FC<Props> = (props) => {
-  const { todoList, onToggleComplete, onEdit, onDestroyTodo } = props;
+  const { todoList, toggleAllInputStatus, onToggleAllComplete, onToggleComplete, onEdit, onDestroyTodo } = props;
   return (
     <section className="main">
-      <ToggleAll />
+      <ToggleAll status={toggleAllInputStatus} onChange={onToggleAllComplete} />
       <ul className="todo-list">
         {todoList
           .map((todo) => {

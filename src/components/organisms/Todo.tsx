@@ -9,6 +9,7 @@ import { FC, useState } from 'react';
 
 const Todo: FC = () => {
   const [visibility, setVisibility] = useTodoVisibility();
+  const [toggleAllInput, setToggleAllInput] = useState(false);
   const [newContent, setContent] = useState('');
   const [todoList, dispatch] = useTodoList();
 
@@ -21,6 +22,14 @@ const Todo: FC = () => {
     setContent('');
   };
   const handleOnChangeContent: InputOnChange = (e) => setContent(e.target.value);
+  const handleOnToggleAllComplete = () => {
+    setToggleAllInput(!toggleAllInput);
+    if (toggleAllInput) {
+      dispatch({ type: 'CHANGE_ALL_COMPLETE', todo: mock });
+    } else {
+      dispatch({ type: 'CHANGE_ALL_ACTIVE', todo: mock });
+    }
+  };
   const handleOnToggleComplete: DispatchAction = (todo) => dispatch({ type: 'TOGGLE_COMPLETE', todo });
   const handleOnEdit: DispatchAction = (todo) => dispatch({ type: 'EDIT_TODO', todo });
   const handleOnDestroyTodo: DispatchAction = (todo) => dispatch({ type: 'DELETE_TODO', todo });
@@ -54,6 +63,8 @@ const Todo: FC = () => {
       />
       <TodoList
         todoList={applyVisibilityToTodoList()}
+        toggleAllInputStatus={toggleAllInput}
+        onToggleAllComplete={handleOnToggleAllComplete}
         onToggleComplete={handleOnToggleComplete}
         onEdit={handleOnEdit}
         onDestroyTodo={handleOnDestroyTodo}

@@ -1,10 +1,18 @@
 import { FC } from 'react';
 
-const ToggleAll: FC = () => {
+type Props = {
+  status: boolean;
+  onChange: () => void;
+};
+
+const ToggleAll: FC<Props> = (props) => {
+  const { status, onChange } = props;
+
   return (
-    <label htmlFor="toggle-all">
-      <input id="toggle-all" className="toggle-all" type="checkbox" />
-    </label>
+    <>
+      <input id="toggle-all" className="toggle-all" type="checkbox" onChange={onChange} checked={status} />
+      <label htmlFor="toggle-all">{}</label>
+    </>
   );
 };
 
