@@ -23,12 +23,12 @@ const Todo: FC = () => {
   };
   const handleOnChangeContent: InputOnChange = (e) => setContent(e.target.value);
   const handleOnToggleAllComplete = () => {
-    setToggleAllInput(!toggleAllInput);
     if (toggleAllInput) {
-      dispatch({ type: 'CHANGE_ALL_COMPLETE', todo: mock });
-    } else {
       dispatch({ type: 'CHANGE_ALL_ACTIVE', todo: mock });
+    } else {
+      dispatch({ type: 'CHANGE_ALL_COMPLETE', todo: mock });
     }
+    setToggleAllInput(!toggleAllInput);
   };
   const handleOnToggleComplete: DispatchAction = (todo) => dispatch({ type: 'TOGGLE_COMPLETE', todo });
   const handleOnEdit: DispatchAction = (todo) => dispatch({ type: 'EDIT_TODO', todo });

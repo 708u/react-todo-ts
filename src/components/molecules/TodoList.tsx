@@ -14,9 +14,10 @@ type Props = {
 
 const TodoList: FC<Props> = (props) => {
   const { todoList, toggleAllInputStatus, onToggleAllComplete, onToggleComplete, onEdit, onDestroyTodo } = props;
+
   return (
     <section className="main">
-      <ToggleAll status={toggleAllInputStatus} onChange={onToggleAllComplete} />
+      <ToggleAll isToggled={!toggleAllInputStatus} onChange={onToggleAllComplete} />
       <ul className="todo-list">
         {todoList
           .map((todo) => {

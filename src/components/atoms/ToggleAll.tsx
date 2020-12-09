@@ -1,16 +1,16 @@
 import { FC } from 'react';
 
 type Props = {
-  status: boolean;
+  isToggled: boolean;
   onChange: () => void;
 };
 
 const ToggleAll: FC<Props> = (props) => {
-  const { status, onChange } = props;
+  const { isToggled, onChange } = props;
 
   return (
     <>
-      <input id="toggle-all" className="toggle-all" type="checkbox" onChange={onChange} checked={status} />
+      <input id="toggle-all" className="toggle-all" type="checkbox" onChange={onChange} checked={isToggled} />
       <label htmlFor="toggle-all">{}</label>
     </>
   );
