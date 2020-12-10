@@ -6,25 +6,21 @@ type Todo = {
   completed: boolean;
 };
 type DispatchAction = (todo: Todo) => void;
-type Action =
-  | 'ADD_TODO'
-  | 'CHANGE_ALL_COMPLETE'
-  | 'CHANGE_ALL_ACTIVE'
-  | 'TOGGLE_COMPLETE'
-  | 'EDIT_TODO'
-  | 'DELETE_TODO'
-  | 'CLEAR_COMPLETED';
-type TodoEvent = {
-  type: Action;
-  todo: Todo;
-};
-const mock: Todo = { id: '', content: '', completed: false };
 
-const useTodoList = (): [Todo[], Dispatch<TodoEvent>] => {
-  const reducer = (state: Todo[], action: TodoEvent): Todo[] => {
+type Action =
+  | { type: 'ADD_TODO'; payload: Todo }
+  | { type: 'CHANGE_ALL_COMPLETE' }
+  | { type: 'CHANGE_ALL_ACTIVE' }
+  | { type: 'TOGGLE_COMPLETE'; payload: Todo }
+  | { type: 'EDIT_TODO'; payload: Todo }
+  | { type: 'DELETE_TODO'; payload: Todo }
+  | { type: 'CLEAR_COMPLETED' };
+
+const useTodoList = (): [Todo[], Dispatch<Action>] => {
+  const reducer = (state: Todo[], action: Action): Todo[] => {
     switch (action.type) {
       case 'ADD_TODO': {
-        return state.concat(action.todo);
+        return state.concat(action.payload);
       }
       case 'CHANGE_ALL_COMPLETE': {
         return state.map((todo) => ({ ...todo, completed: true }));
@@ -33,19 +29,19 @@ const useTodoList = (): [Todo[], Dispatch<TodoEvent>] => {
         return state.map((todo) => ({ ...todo, completed: false }));
       }
       case 'TOGGLE_COMPLETE': {
-        return state.map((todo) => (todo.id === action.todo.id ? { ...todo, completed: !todo.completed } : todo));
+        return state.map((todo) => (todo.id === action.payload.id ? { ...todo, completed: !todo.completed } : todo));
       }
       case 'EDIT_TODO': {
-        return state.map((todo) => (todo.id === action.todo.id ? { ...todo, content: todo.content } : todo));
+        return state.map((todo) => (todo.id === action.payload.id ? { ...todo, content: todo.content } : todo));
       }
       case 'DELETE_TODO': {
-        return state.filter((todo) => todo.id !== action.todo.id);
+        return state.filter((todo) => todo.id !== action.payload.id);
       }
       case 'CLEAR_COMPLETED': {
         return state.filter((todo) => !todo.completed);
       }
       default: {
-        const _: never = action.type;
+        const _: never = action;
         throw new Error(`${_} is not action.`);
       }
     }
@@ -54,6 +50,5 @@ const useTodoList = (): [Todo[], Dispatch<TodoEvent>] => {
   return [todoList, dispatchTodoList];
 };
 
-export { mock };
 export type { Todo, DispatchAction };
 export default useTodoList;

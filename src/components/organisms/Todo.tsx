@@ -2,7 +2,7 @@ import { InputOnChange } from 'components/atoms/Input';
 import TodoFooter from 'components/molecules/TodoFooter';
 import TodoList from 'components/molecules/TodoList';
 import TodoTitle, { HandleOnSubmitNewTodo } from 'components/molecules/TodoTitle';
-import useTodoList, { Todo as TodoType, DispatchAction, mock } from 'lib/hooks/useTodoList';
+import useTodoList, { Todo as TodoType, DispatchAction } from 'lib/hooks/useTodoList';
 import useTodoVisibility, { TodoVisibility } from 'lib/hooks/useTodoVisibility';
 import uuid from 'lib/uuid';
 import { FC, useState } from 'react';
@@ -26,22 +26,22 @@ const Todo: FC = () => {
     if (newContent === '') {
       return;
     }
-    dispatch({ type: 'ADD_TODO', todo: { id: uuid(), content: newContent, completed: false } });
+    dispatch({ type: 'ADD_TODO', payload: { id: uuid(), content: newContent, completed: false } });
     setContent('');
   };
   const handleOnChangeContent: InputOnChange = (e) => setContent(e.target.value);
   const handleOnToggleAllComplete = () => {
     if (toggleAllInput) {
-      dispatch({ type: 'CHANGE_ALL_ACTIVE', todo: mock });
+      dispatch({ type: 'CHANGE_ALL_ACTIVE' });
     } else {
-      dispatch({ type: 'CHANGE_ALL_COMPLETE', todo: mock });
+      dispatch({ type: 'CHANGE_ALL_COMPLETE' });
     }
     setToggleAllInput(!toggleAllInput);
   };
-  const handleOnToggleComplete: DispatchAction = (todo) => dispatch({ type: 'TOGGLE_COMPLETE', todo });
-  const handleOnEdit: DispatchAction = (todo) => dispatch({ type: 'EDIT_TODO', todo });
-  const handleOnDestroyTodo: DispatchAction = (todo) => dispatch({ type: 'DELETE_TODO', todo });
-  const handleOnClearCompleted = (): void => dispatch({ type: 'CLEAR_COMPLETED', todo: mock });
+  const handleOnToggleComplete: DispatchAction = (todo) => dispatch({ type: 'TOGGLE_COMPLETE', payload: todo });
+  const handleOnEdit: DispatchAction = (todo) => dispatch({ type: 'EDIT_TODO', payload: todo });
+  const handleOnDestroyTodo: DispatchAction = (todo) => dispatch({ type: 'DELETE_TODO', payload: todo });
+  const handleOnClearCompleted = (): void => dispatch({ type: 'CLEAR_COMPLETED' });
   const handleOnCheckVisibility = (visible: TodoVisibility) => (): void => setVisibility({ status: visible });
 
   const applyVisibilityToTodoList = (): TodoType[] => {
