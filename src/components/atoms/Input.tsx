@@ -1,3 +1,4 @@
+import InputStyle from 'components/atoms/InputStyle';
 import { ChangeEvent, FC } from 'react';
 import styled from 'styled-components';
 
@@ -8,7 +9,12 @@ type Props = {
   placeholder?: string;
 };
 
-const InputStyle = styled.input`
+const NewTodo = styled(InputStyle)`
+  padding: 16px 16px 16px 60px;
+  border: none;
+  background: rgba(0, 0, 0, 0.003);
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+
   ::-webkit-input-placeholder {
     font-style: italic;
     font-weight: 300;
@@ -30,7 +36,7 @@ const InputStyle = styled.input`
 
 const Input: FC<Props> = (props) => {
   const { value, onChange, placeholder } = props;
-  return <InputStyle className="new-todo" placeholder={placeholder} value={value} type="text" onChange={onChange} />;
+  return <NewTodo placeholder={placeholder} value={value} type="text" onChange={onChange} />;
 };
 
 export type { InputOnChange };

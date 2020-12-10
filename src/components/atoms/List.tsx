@@ -1,3 +1,4 @@
+import InputStyle from 'components/atoms/InputStyle';
 import keys from 'lib/constants';
 import { DispatchAction, Todo } from 'lib/hooks/useTodoList';
 import { FC, KeyboardEvent, useEffect, useRef, useState } from 'react';
@@ -38,7 +39,7 @@ const List: FC<Props> = (props) => {
           {/* X */}
         </button>
       </div>
-      <input
+      <InputStyle
         id={`edit-${todo.id}`}
         value={editStatus.content}
         type="text"
