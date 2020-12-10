@@ -2,6 +2,7 @@ import List from 'components/atoms/List';
 import ToggleAll from 'components/atoms/ToggleAll';
 import type { DispatchAction, Todo } from 'lib/hooks/useTodoList';
 import { FC } from 'react';
+import styled from 'styled-components';
 
 type Props = {
   todoList: Todo[];
@@ -12,11 +13,17 @@ type Props = {
   onDestroyTodo: DispatchAction;
 };
 
+const Main = styled.main`
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid #e6e6e6;
+`;
+
 const TodoList: FC<Props> = (props) => {
   const { todoList, toggleAllInputStatus, onToggleAllComplete, onToggleComplete, onEdit, onDestroyTodo } = props;
 
   return (
-    <section className="main">
+    <Main className="main">
       <ToggleAll isToggled={!toggleAllInputStatus} onChange={onToggleAllComplete} />
       <ul className="todo-list">
         {todoList
@@ -33,7 +40,7 @@ const TodoList: FC<Props> = (props) => {
           })
           .reverse()}
       </ul>
-    </section>
+    </Main>
   );
 };
 
